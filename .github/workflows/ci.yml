@@ -19,4 +19,6 @@ jobs:
           go-version: "1.23.0"
 
       - name: Run Go Tests
-        run: go test ./...
+        run: |
+          echo "Running go test ./..."
+          go test ./...
