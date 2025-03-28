@@ -21,7 +21,7 @@ func TestGetAPIKey(t *testing.T) {
 			wantErr:  false,
 		},
 		{
-			name: "missing Authorization header",
+			name:    "missing Authorization header",
 			headers: http.Header{
 				// No Authorization header
 			},
@@ -49,13 +49,13 @@ func TestGetAPIKey(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			result, err := GetAPIKey(tc.headers)
-			
+
 			// Check if we got an error when we wanted one
 			if (err != nil) != tc.wantErr {
 				t.Errorf("GetAPIKey() error = %v, wantErr %v", err, tc.wantErr)
 				return
 			}
-			
+
 			// Check if the result matches what we expected
 			if result != tc.expected {
 				t.Errorf("GetAPIKey() = %v, want %v", result, tc.expected)
