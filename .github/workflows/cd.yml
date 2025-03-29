@@ -4,7 +4,6 @@ on:
     push:
       branches: [main]
 
-
 jobs:
   deploy:
     name: Deploy
@@ -18,3 +17,14 @@ jobs:
           go-version: '1.23.0'
       - name: Build notely
         run: ./scripts/buildprod.sh
+      
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS}}'
+      
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+      
+      - name: 'Build and push image to Google Artifact Registry'
+        run: 'gcloud builds submit --tag us-central1-docker.pkg.dev/notely-455204/notely-ar-repo/notely:latest .'
